@@ -3,11 +3,11 @@
 # Build (from this directory), then install locally:
 #   flatpak-builder --user --install --force-clean build io.github.f3nr1l.WinctrlConfig.yml
 #
-# Runtime/SDK versions and the rust-stable extension branch may need to be
-# adjusted to what is installed on the build host.
+# GNOME 51 is based on freedesktop-sdk 26.08: the matching Rust extension is
+# org.freedesktop.Sdk.Extension.rust-stable//26.08.
 app-id: io.github.f3nr1l.WinctrlConfig
 runtime: org.gnome.Platform
-runtime-version: '48'
+runtime-version: '51'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable

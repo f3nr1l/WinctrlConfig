@@ -24,9 +24,10 @@ flatpak run io.github.f3nr1l.WinctrlConfig
 ```
 
 Notes:
-- Adjust `runtime-version` and the `org.freedesktop.Sdk.Extension.rust-stable`
-  branch to what is installed (`flatpak install org.gnome.Sdk//48
-  org.freedesktop.Sdk.Extension.rust-stable//24.08`).
+- Requires the GNOME 51 SDK and the Rust extension of the same freedesktop base
+  (`flatpak install flathub org.gnome.Sdk//51
+  org.freedesktop.Sdk.Extension.rust-stable//26.08`). When bumping the runtime,
+  bump the extension branch with it: an older branch ships an older `rustc`.
 - The manifest builds with network access (cargo fetches crates). For a fully
   offline / Flathub-style build, drop `--share=network` from `build-args` and add a
   generated cargo sources file:
@@ -57,12 +58,5 @@ Both packages build and install successfully:
   on hosts without FUSE). Produces `WinCtrl_Config-x86_64.AppImage`.
 - **Flatpak** — `flatpak-builder` against the manifest.
 
-Two things to revisit before a Flathub submission:
-
-1. **Rust toolchain.** gtk4-rs 0.11 requires a newer `rustc` than the stable SDK
-   extension currently ships (`rust-stable//24.08` = 1.89 vs. the crates' 1.92). The
-   local 0.9.0 Flatpak was built by swapping `rust-stable` → `rust-nightly` in the
-   manifest. Keep `rust-stable` in the committed manifest and drop the nightly swap
-   once the stable extension catches up (or pin the gtk-rs stack to a 1.89-MSRV set).
-2. **Runtime version.** The manifest targets `org.gnome.Platform//48`, which is
-   end-of-life. Bump to a supported GNOME runtime before publishing.
+The manifest targets `org.gnome.Platform//51` and builds with `rust-stable`; no
+nightly toolchain is needed (gtk4-rs 0.11 requires `rustc` 1.92).
